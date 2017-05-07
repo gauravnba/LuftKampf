@@ -1,0 +1,2 @@
+void DrawCircle(float32_t radius, float32_t x, float32_t y, char8_t r, char8_t g, char8_t b, bool filled);
+void DrawLine(float32_t startX, float32_t startY, float32_t endX, float32_t endY, char8_t r, char8_t g, char8_t b);
