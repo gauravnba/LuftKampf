@@ -5,12 +5,14 @@
 #include "Player.h"
 #include "ProjectileManager.h"
 #include <math.h>
+#include "EnemyManager.h"
+#include "ProjectileManager.h"
 
 Player* Player::sInstance = nullptr;
 
 Player* Player::CreateInstance()
 {
-	if (sInstance == nullptr)
+	if (!sInstance)
 		sInstance = new Player;
 
 	return sInstance;
@@ -18,7 +20,9 @@ Player* Player::CreateInstance()
 
 void Player::init()
 {
-	mPlayerSprite = SpriteManager::GetInstance()->addSprite(PLAYER_WIDTH, PLAYER_HEIGHT, "assets\\Airplane.png");
+	mPlayerSprite = SpriteManager::GetInstance()->addSprite(PLAYER_WIDTH, PLAYER_HEIGHT, "assets\\Airplane.png", 2);
+	mThrusterSprite = SpriteManager::GetInstance()->addSprite(THRUST_SPRITE_SIZE, THRUST_SPRITE_SIZE, "assets\\Thrust.png", 2);
+	mThrusterSprite->setDraw(false);
 }
 
 void Player::update(float32_t deltaTime)
@@ -28,9 +32,14 @@ void Player::update(float32_t deltaTime)
 	if (lPlayerInputs[INPUT_THRUST])
 	{
 		mIsThrusting = true;
+		mThrusterSprite->setDraw(true);
+		mThrusterSprite->setRotation(mPlayerRotation);
+		mThrusterSprite->setPosX(mPosX - (((PLAYER_WIDTH + THRUST_SPRITE_SIZE)/2)*cos(mPlayerRotation)));
+		mThrusterSprite->setPosY(mPosY - (((PLAYER_HEIGHT+ THRUST_SPRITE_SIZE)/2)*sin(mPlayerRotation)));
 	}
 	else
 	{
+		mThrusterSprite->setDraw(false);
 		mIsThrusting = false;
 	}
 
@@ -83,7 +92,9 @@ void Player::update(float32_t deltaTime)
 			mSkipFire = 0;
 		}
 		else
+		{
 			mSkipFire += deltaTime;
+		}
 	}
 
 	updatePosition(deltaTime);
@@ -106,7 +117,7 @@ void Player::updatePosition(float32_t deltaTime)
 	//apply Gravity
 	mPlayerVelocityY -= (mGravity * deltaTime);
 
-
+	//Apply drag to player
 	if (mPlayerVelocityX > 0)
 	{
 		mPlayerVelocityX -= (mDrag * deltaTime);
@@ -117,20 +128,18 @@ void Player::updatePosition(float32_t deltaTime)
 		mPlayerVelocityX += (mDrag * deltaTime);
 	}
 
+	//Use thrusters
 	if (mIsThrusting && (mPlayerVelocityX <= mMaxVelocity) && (mPlayerVelocityY <= mMaxVelocity))
 	{
 		mPlayerVelocityX += (mAcceleration * cos(mPlayerRotation)) * deltaTime;
 		mPlayerVelocityY += (mAcceleration * sin(mPlayerRotation)) * deltaTime;
-
-		char debug[256];
-		sprintf(debug, "\nplayerVelX: %f\nplayerVelY: %f\n", mPlayerVelocityX, mPlayerVelocityY);
-
-		OutputDebugString(debug);
 	}
 
+	//Set position in frame
 	mPosX += mPlayerVelocityX * deltaTime;
 	mPosY += mPlayerVelocityY * deltaTime;
 
+	//Set Sprite position.
 	mPlayerSprite->setPosX(mPosX);
 	mPlayerSprite->setPosY(mPosY);
 	mPlayerSprite->setRotation(mPlayerRotation);
@@ -139,4 +148,9 @@ void Player::updatePosition(float32_t deltaTime)
 void Player::shutdown()
 {
 	delete sInstance;
+}
+
+void Player::damagePlayer(int32_t damage)
+{
+	mPlayerHealth -= damage;
 }

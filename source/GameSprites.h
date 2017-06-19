@@ -6,7 +6,7 @@ class GameSprites
 {
 public:
 	GameSprites() {};
-	GameSprites(int width, int height, int ID, int zIndex);
+	GameSprites(int32_t width, int32_t height, int32_t ID, int32_t zIndex);
 	~GameSprites() {};
 	int32_t	getWidth() { return mWidth; };
 	int32_t	getHeight() { return mHeight; };
@@ -15,11 +15,14 @@ public:
 
 	void setPosX(float32_t posX) { mPosX = posX; };
 	void setPosY(float32_t posY) { mPosY = posY; };
-	int32_t getPosX() { return mPosX; };
-	int32_t getposY() { return mPosY; };
+	float32_t getPosX() { return mPosX; };
+	float32_t getposY() { return mPosY; };
 
-	void setRotation(float32_t rotationAngle);
+	void GameSprites::setRotation(float32_t rotateAngle) { mRotation = rotateAngle; };
 	float32_t getRotation() { return mRotation; };
+
+	void setDraw(bool_t draw) { mToDraw = draw; };
+	bool_t getDraw() { return mToDraw; };
 
 private:
 	int32_t mWidth;
@@ -29,4 +32,5 @@ private:
 	float32_t mPosX		= 0.0f;
 	float32_t mPosY		= 0.0f;
 	int32_t mId;
+	bool_t	mToDraw		= true;
 };

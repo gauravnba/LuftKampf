@@ -1,14 +1,9 @@
 #include "GameSprites.h"
 
-GameSprites::GameSprites(int width, int height, int ID, int index)
+GameSprites::GameSprites(int32_t width, int32_t height, int32_t ID, int32_t index)
 {
 	mWidth = width;
 	mHeight = height;
 	mId = ID;
 	zIndex = index;
-}
-
-void GameSprites::setRotation(float32_t rotateAngle)
-{
-	mRotation = rotateAngle;
 }

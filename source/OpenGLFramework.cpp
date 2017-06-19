@@ -6,7 +6,7 @@
 #include <gl/glu.h>														// Header File For The GLu32 Library
 #include "glut.h"
 //#include "baseTypes.h"
-#include "openglframework.h"														// Header File For The NeHeGL Basecode
+#include "openglframework.h"											// Header File For The NeHeGL Basecode
 #include "game.h"
 
 #define WM_TOGGLEFULLSCREEN (WM_USER+1)									// Application Define Message For Toggling
@@ -19,7 +19,7 @@
 static BOOL g_isProgramLooping;											// Window Creation Loop, For FullScreen/Windowed Toggle																		// Between Fullscreen / Windowed Mode
 static BOOL g_createFullScreen;											// If TRUE, Then Create Fullscreen
 
-int	mouse_x, mouse_y;							                        // The Current Position Of The Mouse
+int32_t	mouse_x, mouse_y;							                        // The Current Position Of The Mouse
 bool_t mouse_r_button_down,mouse_l_button_down;
 void TerminateApplication (GL_Window* window)							// Terminate The Application
 {
@@ -32,7 +32,7 @@ void ToggleFullscreen (GL_Window* window)								// Toggle Fullscreen/Windowed
 	PostMessage (window->hWnd, WM_TOGGLEFULLSCREEN, 0, 0);				// Send A WM_TOGGLEFULLSCREEN Message
 }
 
-void ReshapeGL (int width, int height)									// Reshape The Window When It's Moved Or Resized
+void ReshapeGL (int32_t width, int32_t height)									// Reshape The Window When It's Moved Or Resized
 {
 	glViewport (0, 0, (GLsizei)(width), (GLsizei)(height));				// Reset The Current Viewport
 	glMatrixMode (GL_PROJECTION);										// Select The Projection Matrix
@@ -40,13 +40,13 @@ void ReshapeGL (int width, int height)									// Reshape The Window When It's M
 
 	// Define the dimensions of the Orthographic Viewing Volume
 	
-	glOrtho(-(width / 2), (width / 2), -(height / 2), (height/ 2), -10, 10);
+	glOrtho(-(width / 2), (width / 2), -(height / 2), (height/ 2), -10, 50);
 
 	glMatrixMode (GL_MODELVIEW);										// Select The Modelview Matrix
 	glLoadIdentity ();													// Reset The Modelview Matrix
 }
 
-BOOL ChangeScreenResolution (int width, int height, int bitsPerPixel)	// Change The Screen Resolution
+BOOL ChangeScreenResolution (int32_t width, int32_t height, int32_t bitsPerPixel)	// Change The Screen Resolution
 {
 	DEVMODE dmScreenSettings;											// Device Mode
 	ZeroMemory (&dmScreenSettings, sizeof (DEVMODE));					// Make Sure Memory Is Cleared
@@ -244,7 +244,7 @@ LRESULT CALLBACK WindowProc (HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			}
 			break;														// Exit
 		}
-		return 0;														// Return
+		//return 0;														// Return
 
 		case WM_CREATE:													// Window Creation
 		{
@@ -342,12 +342,16 @@ BOOL RegisterWindowClass (Application* application)						// Register A Window Cl
 }
 
 // Program Entry (WinMain)
-int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+int32_t WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int32_t nCmdShow)
 {
+	UNREFERENCED_PARAMETER(nCmdShow);
+	UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(lpCmdLine);
+
     AllocConsole();
 
     HANDLE handle_out = GetStdHandle(STD_OUTPUT_HANDLE);
-    int hCrt = _open_osfhandle((long) handle_out, _O_TEXT);
+    int32_t hCrt = _open_osfhandle((long) handle_out, _O_TEXT);
     FILE* hf_out = _fdopen(hCrt, "w");
     setvbuf(hf_out, NULL, _IONBF, 1);
     *stdout = *hf_out;
@@ -367,7 +371,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 	MSG					msg;											// Window Message Structure
 	float32_t				tickCount;										// Used For The Tick Counter
 	char8_t				title[20];
-	strncpy(title,CGame::GetInstance()->GetGameTitle(),19);
+	strncpy_s(title,CGame::GetInstance()->GetGameTitle(),19);
 
 	// Fill Out Application Data
 	application.className = "OpenGL";									// Application Class Name

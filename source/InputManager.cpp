@@ -12,7 +12,7 @@ const char InputManager::mPlayerInput[NUM_INPUTS] = { VK_UP, VK_LEFT, VK_RIGHT, 
 
 InputManager *InputManager::CreateInstance()
 {
-	if(sInstance == nullptr)
+	if(!sInstance)
 		sInstance = new InputManager();
 
 	return sInstance;
@@ -35,7 +35,7 @@ void InputManager::keyProcess()
 
 void InputManager::playerInput()
 {
-	for (int i = 0; i < NUM_INPUTS; i++)
+	for (int32_t i = 0; i < NUM_INPUTS; i++)
 	{
 		if (g_keys->keyDown[mPlayerInput[i]])
 		{

@@ -12,7 +12,7 @@ Environment* Environment::sInstance = nullptr;
 
 Environment* Environment::CreateInstance()
 {
-	if (sInstance == nullptr)
+	if (!sInstance)
 	{
 		sInstance = new Environment();
 	}
@@ -22,20 +22,30 @@ Environment* Environment::CreateInstance()
 
 void Environment::initBackground()
 {
-	mBackgroundSprite	= SpriteManager::GetInstance()->addSprite(ENVIRONMENT_WIDTH, ENVIRONMENT_HEIGHT, "assets\\Environment.png");
-	//mCloudSprite		=
+	mBackgroundSprite	= SpriteManager::GetInstance()->addSprite(ENVIRONMENT_WIDTH, ENVIRONMENT_HEIGHT, "assets\\Environment.png", 0);
+	mCloudSprite		= SpriteManager::GetInstance()->addSprite(CLOUDS_WIDTH, CLOUDS_HEIGHT, "assets\\Clouds.png", 1);
+	mCloudSpriteLeft	= SpriteManager::GetInstance()->addSprite(CLOUDS_WIDTH, CLOUDS_HEIGHT, "assets\\Clouds.png", 1);
+	mCloudSpriteRight	= SpriteManager::GetInstance()->addSprite(CLOUDS_WIDTH, CLOUDS_HEIGHT, "assets\\Clouds.png", 1);
+
+	mCloudSprite->setPosY(CLOUDS_Y_POSITION);
+
+	mCloudSpriteLeft->setPosY(CLOUDS_Y_POSITION);
+	mCloudSpriteRight->setPosY(CLOUDS_Y_POSITION);
+
+	mCloudSpriteLeft->setPosX(-CLOUDS_X_POSITION);
+	mCloudSpriteRight->setPosX(CLOUDS_X_POSITION);
 }
 
 void Environment::initBounds()
 {
-	mStratosSprite  = SpriteManager::GetInstance()->addSprite(ENVIRONMENT_WIDTH, BOUNDS_HEIGHT, "assets\\Stratosphere.png");
-	mSeaSprite		= SpriteManager::GetInstance()->addSprite(ENVIRONMENT_WIDTH, BOUNDS_HEIGHT, "assets\\Sea.png");
+	mStratosSprite  = SpriteManager::GetInstance()->addSprite(ENVIRONMENT_WIDTH, BOUNDS_HEIGHT, "assets\\Stratosphere.png", 3);
+	mSeaSprite		= SpriteManager::GetInstance()->addSprite(ENVIRONMENT_WIDTH, BOUNDS_HEIGHT, "assets\\Sea.png", 3);
 
 	mStratosSprite->setPosY(BOUNDS_Y_POSITION);
 	mSeaSprite->setPosY(-BOUNDS_Y_POSITION);
 }
 
-void Environment::update(float32_t deltaTime)
+void Environment::update()
 {
 	mBackgroundSprite->setPosX(Player::GetInstance()->getPosX());
 	mStratosSprite->setPosX(Player::GetInstance()->getPosX());

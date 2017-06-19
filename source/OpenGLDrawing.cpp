@@ -11,7 +11,7 @@
 
 void initOpenGLDrawing( GL_Window *window, Keys *keys, float32_t backRed, float32_t backGreen, float32_t backBlue)
 {
-	glClearColor(backRed, backGreen, backGreen, 0.0f);			// Background Color
+	glClearColor(backRed, backGreen, backBlue, 0.0f);			// Background Color
 	glClearDepth(1.0f);											// Depth Buffer Setup
 	glDepthFunc(GL_LEQUAL);										// Type Of Depth Testing
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);			// Enable Alpha Blending

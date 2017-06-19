@@ -9,20 +9,20 @@
 
 class ProjectileManager
 {
+	friend class CollisionManager;
 public:
 	static ProjectileManager* CreateInstance();
 	static ProjectileManager* GetInstance() { return sInstance; };
 	~ProjectileManager() {};
 
-	int32_t	getNumProjectiles() { return mNumProjectiles; };
+	int32_t	getNumProjectiles() { return mListOfProjectiles.size(); };
 	void	createProjectile(float32_t initPosX, float32_t initPosY, float32_t VelX, float32_t VelY, int32_t projectileID);
 	//Projectile* getProjectile(int32_t mID);
 	void	updateProjectiles(float32_t seconds);
 	void	renderProjectiles();
 
 private:
-	std::vector <Projectile*> mListOfProjectiles;
+	std::vector<Projectile*> mListOfProjectiles;
 	static ProjectileManager* sInstance;
-	static int32_t mNumProjectiles;
-	ProjectileManager() {};
+	ProjectileManager() = default;
 };

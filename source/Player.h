@@ -18,6 +18,8 @@
 #define ROTATE_UNDER_THRUST		3.0f
 #define PLAYER_PROJECTILE_ID	0
 
+#define THRUST_SPRITE_SIZE		30
+
 class Player
 {
 public:
@@ -28,10 +30,10 @@ public:
 	void init();
 	void update(float32_t deltaSeconds);
 	void render();
-	void checkCollisions();
-	void reduceVelocity();
 	void updatePosition(float32_t deltaSeconds);
 	void shutdown();
+
+	void damagePlayer(int32_t damage);
 
 	float32_t getRotation() { return mPlayerRotation; };
 	float32_t getPosX() { return mPosX; };
@@ -42,15 +44,18 @@ public:
 private:
 	static Player* sInstance;
 	GameSprites* mPlayerSprite;
+	GameSprites* mThrusterSprite;
 
 	const float32_t	mGravity		= 100.0f;
-	const float32_t mDrag			= 50.0f;
-	const float32_t mAcceleration	= 800.0f;
+	const float32_t mDrag			= 100.0f;
+	const float32_t mAcceleration	= 1000.0f;
 	const float32_t mMaxVelocity	= 500.0f;
 	const float32_t mProjectileVel	= 1200.0f;
 
 	float32_t	mPosX = 0;
 	float32_t	mPosY = 0;
+
+	int32_t		mPlayerHealth		= 100;
 
 	float32_t	mPlayerRotation		= 1.57079f;
 	float32_t	mPlayerVelocityX	= 0;

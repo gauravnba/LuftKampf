@@ -4,23 +4,25 @@
 #include "Enemy.h"
 #include <vector>
 
+#define FULL_CIRCLE 6.28318f
+
 class EnemyManager
 {
+	friend class CollisionManager;
 public:
 	static EnemyManager* CreateInstance();
 	static EnemyManager* GetInstance() { return sInstance; };
 	~EnemyManager() {};
 
-	void	init();
-	int32_t	getNumEnemies() { return mNumEnemies; };
-	void	spawnEnemy();
-	void	updateEnemies(float32_t seconds);
-	void	renderEnemies();
-	void	fireGuns();
+	void	createEnemy();
+	int32_t	getNumEnemies() { return mListofEnemies.size(); };
+	void	updateEnemies(float32_t deltaTime);
 
 private:
-	std::vector <Enemy*> mListofEnemies;
 	static EnemyManager* sInstance;
-	static int32_t mNumEnemies;
+
+	std::vector <Enemy*> mListofEnemies;
+	bool_t		mNoEnemiesPresent	= true;
+
 	EnemyManager() {};
 };

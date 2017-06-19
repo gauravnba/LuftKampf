@@ -3,7 +3,7 @@
 #include "GameSprites.h"
 #include "baseTypes.h"
 
-#define MAX_NUM_SPRITES 5
+#define MAX_NUM_SPRITES 50
 
 class SpriteManager
 {
@@ -12,7 +12,7 @@ public:
 	static SpriteManager *GetInstance() { return sInstance; };
 	~SpriteManager() {};
 
-	GameSprites*	addSprite(int quadWidth, int quadHeight, char* spriteFileName);
+	GameSprites*	addSprite(int32_t quadWidth, int32_t quadHeight, char* spriteFileName, int32_t zDepth);
 	void			updateSprites(float32_t seconds);
 	void			renderSprites();
 	void			shutdown();

@@ -43,9 +43,9 @@ typedef struct {									// Contains Information Vital To Applications
 typedef struct {									// Window Creation Info
 	Application*		application;				// Application Structure
 	char*				title;						// Window Title
-	int					width;						// Width
-	int					height;						// Height
-	int					bitsPerPixel;				// Bits Per Pixel
+	int32_t					width;						// Width
+	int32_t					height;						// Height
+	int32_t					bitsPerPixel;				// Bits Per Pixel
 	BOOL				isFullScreen;				// FullScreen?
 } GL_WindowInit;									// GL_WindowInit
 
@@ -72,18 +72,18 @@ void Deinitialize ();							// Performs All Your DeInitialization
 
 void Update(float32_t seconds);					// Perform Motion Updates
 
-//void keyProcess(void);								// Perform Keyboard Processing
+//void keyProcess(void);						// Perform Keyboard Processing
 
-void DrawScene(void);								// Perform All Your Scene Drawing
+void DrawScene(void);							// Perform All Your Scene Drawing
 //-----------------
 
-extern int mouse_x;
-extern int mouse_y;
+extern int32_t mouse_x;
+extern int32_t mouse_y;
 
-extern char appTitle[];								// Stores Program Title
-extern int screenInfo[3];							// Stores Screen Info (w,h,bpp)
+extern char appTitle[];							// Stores Program Title
+extern int32_t screenInfo[3];						// Stores Screen Info (w,h,bpp)
 
 extern GL_Window*	g_window;
 extern Keys*		g_keys;
 
-#endif												// GL_FRAMEWORK__INCLUDED
+#endif											// GL_FRAMEWORK__INCLUDED

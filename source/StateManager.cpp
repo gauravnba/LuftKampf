@@ -14,7 +14,7 @@ StateManager* StateManager::sInstance = nullptr;
 
 StateManager *StateManager::CreateInstance()
 {
-	if(sInstance == nullptr)
+	if(!sInstance)
 		sInstance = new StateManager();
 
 	return sInstance;

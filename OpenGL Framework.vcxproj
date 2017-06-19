@@ -59,24 +59,24 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\Software Engineering I\Software\OpenGL Framework;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\FMOD\inc;$(ProjectDir)external\SOIL\inc;$(ProjectDir)external\GLUT\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <WarningLevel>Level2</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <TreatWarningAsError>false</TreatWarningAsError>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glut32.lib;soil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodL_vc.lib;opengl32.lib;glu32.lib;glut32.lib;soil.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <AssemblyDebug>true</AssemblyDebug>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
-      <AdditionalLibraryDirectories>$(SolutionDir)\libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)external\FMOD\lib\$(Configuration);$(ProjectDir)external\SOIL\lib;$(ProjectDir)external\GLUT\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,60 +86,50 @@
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\FMOD\inc;$(ProjectDir)external\SOIL\inc;$(ProjectDir)external\GLUT\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmod_vc.lib;opengl32.lib;glu32.lib;glut32.lib;soil.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName).exe</OutputFile>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <DataExecutionPrevention>
       </DataExecutionPrevention>
+      <AdditionalLibraryDirectories>$(ProjectDir)external\FMOD\lib\$(Configuration);$(ProjectDir)external\SOIL\lib;$(ProjectDir)external\GLUT\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="source\ball.h" />
-    <ClInclude Include="source\BallManager.h" />
-    <ClInclude Include="source\baseTypes.h" />
-    <ClInclude Include="source\collInfo.h" />
+    <ClInclude Include="source\BaseTypes.h" />
+    <ClInclude Include="source\CollisionManager.h" />
     <ClInclude Include="source\Enemy.h" />
     <ClInclude Include="source\EnemyManager.h" />
     <ClInclude Include="source\Environment.h" />
-    <ClInclude Include="source\field.h" />
-    <ClInclude Include="source\FieldManager.h" />
     <ClInclude Include="source\Game.h" />
     <ClInclude Include="source\GameSprites.h" />
-    <ClInclude Include="source\glut.h" />
     <ClInclude Include="source\InputManager.h" />
-    <ClInclude Include="source\Object.h" />
     <ClInclude Include="source\OpenGLDrawing.h" />
     <ClInclude Include="source\OpenGLFramework.h" />
     <ClInclude Include="source\Player.h" />
     <ClInclude Include="source\Projectile.h" />
     <ClInclude Include="source\ProjectileManager.h" />
     <ClInclude Include="source\RandomNumberGenerator.h" />
-    <ClInclude Include="source\ShapeDraw.h" />
-    <ClInclude Include="source\SOIL.h" />
     <ClInclude Include="source\SpriteManager.h" />
     <ClInclude Include="source\StateManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\ball.cpp" />
-    <ClCompile Include="source\BallManager.cpp" />
+    <ClCompile Include="source\CollisionManager.cpp" />
+    <ClCompile Include="source\Enemy.cpp" />
     <ClCompile Include="source\EnemyManager.cpp" />
     <ClCompile Include="source\Environment.cpp" />
-    <ClCompile Include="source\field.cpp" />
-    <ClCompile Include="source\FieldManager.cpp" />
-    <ClCompile Include="source\game.cpp" />
+    <ClCompile Include="source\Game.cpp" />
     <ClCompile Include="source\GameSprites.cpp" />
     <ClCompile Include="source\InputManager.cpp" />
-    <ClCompile Include="source\Object.cpp" />
     <ClCompile Include="source\OpenGLDrawing.cpp" />
     <ClCompile Include="source\OpenGLFramework.cpp" />
     <ClCompile Include="source\Player.cpp" />
     <ClCompile Include="source\Projectile.cpp" />
     <ClCompile Include="source\ProjectileManager.cpp" />
     <ClCompile Include="source\RandomNumberGenerator.cpp" />
-    <ClCompile Include="source\ShapeDraw.cpp" />
     <ClCompile Include="source\SpriteManager.cpp" />
     <ClCompile Include="source\StateManager.cpp" />
   </ItemGroup>
